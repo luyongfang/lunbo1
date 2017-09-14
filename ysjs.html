@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#box{
+				width: 600px;
+				height: 300px;
+				border: 1px solid black;
+				position: relative;
+				
+			}
+			#box>div{
+				width: 100%;
+				height: 100%;
+				background: yellow;
+				position: absolute;
+			}
+			ol{
+				position: absolute;
+				bottom: 10px;
+				left: 50%;
+				transform: translate(-50%);
+				z-index: 999;
+			}
+			ol li{
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: darkgray;
+				float: left;
+				margin-left: 15px;
+			}
+			#left{
+				/*width: 50px;
+				height: 50px;
+				background:green;*/
+				text-align: center;
+				line-height: 50px;
+				font-size: 30px;
+				position: absolute;
+				top: 50%;
+				left: 10px;
+				z-index: 999;
+				text-decoration: none;
+				transform: translateY(-50%);
+			}
+			#right{
+				/*width: 50px;
+				height: 50px;
+				background:green;*/
+				text-align: center;
+				font-size: 30px;
+				line-height: 50px;
+				position: absolute;
+				top: 50%;
+				right: 10px;
+				z-index: 999;
+				text-decoration: none;
+				transform: translateY(-50%);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div style="z-index: 1;">slide1</div>
+			<div>slide2</div>
+			<div>slide3</div>
+			<div>slide4</div>
+			<ol>
+				<li style="background: red;"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+			<a href="#" id="left">&lt;</a>
+			<a href="#" id="right">&gt;</a>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var box = document.querySelector("#box");
+		var divs = box.querySelectorAll("div");
+		var lis = document.querySelectorAll("li");
+		var index =0;
+		var timer = null;
+		function lun(){
+			index++;
+			for(var i=0; i<divs.length; i++){
+				divs[i].style.zIndex = -1;
+				lis[i].style.background = "darkgray";
+			}
+			divs[index].style.zIndex = 1;
+			lis[index].style.background="red"
+		}
+		
+		for(var i=0; i<lis.length; i++){
+			lis[i].index = i;
+			lis[i].onclick=function(){
+				clearInterval(timer)
+				var n = this.index;
+				for(var j=0; j<lis.length; j++){
+					divs[j].style.zIndex = -1;
+					lis[j].style.background = "darkgray";
+				}
+				divs[n].style.zIndex = 1;
+				lis[n].style.background = "red";
+				if(n==3){
+					index = -1
+				}else{
+					index=n
+				}
+				timer = setInterval(lun,1500)
+			}
+		}
+		
+//		left
+		var left = document.querySelector("#left");
+		left.onclick=function(){
+			clearInterval(timer);
+			for(var i=0; i<divs.length; i++){
+				divs[i].style.zIndex = -1;
+				lis[i].style.background = "darkgray";
+			}
+			divs[index].style.zIndex= 1;
+			lis[index].style.background="red";
+			if(index==0){
+				index=4;
+			}
+			index--;
+			timer= setInterval(lun,1500)
+		}
+//		right
+		var right = document.querySelector("#right");
+		right.onclick=function(){
+			clearInterval(timer);
+			for(var i=0; i<divs.length; i++){
+				divs[i].style.zIndex = -1;
+				lis[i].style.background = "darkgray";
+			}
+			divs[index].style.zIndex= 1;
+			lis[index].style.background="red";
+			if(index==3){
+				index=-1;
+			}
+			index++;
+			timer= setInterval(lun,1500)
+		}
+		timer = setInterval(lun,1500)
+	</script>
+</html>

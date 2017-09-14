@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.box{
+				width: 600px;
+				height: 300px;
+				border: 5px solid gainsboro;
+				margin: 50px auto;
+				position:relative;
+			}
+			.box>div{
+				width: 100%;
+				height: 100%;	
+				text-align: center;
+				line-height: 300px;	
+				position: absolute;		
+			}
+			.box>div:nth-of-type(1){
+				background: red;
+			}
+			.box>div:nth-of-type(2){
+				background:blue;
+			}
+			.box>div:nth-of-type(3){
+				background:green;
+			}
+			.box>div:nth-of-type(4){
+				background:yellow;
+			}
+			ol{
+				position: absolute;
+				/*background: palegoldenrod;*/
+				width: 400px;
+				height: 20px;
+				bottom: 10px;
+				left:100px;
+			}
+			ol>li{
+				width: 20px;
+				height: 20px;
+				background: paleturquoise;
+				border-radius: 50%;
+				float: left;
+				margin-left: 70px;
+				text-align: center;
+				line-height: 20px;
+			}
+			#left{
+				width: 50px;
+				height: 50px;
+				background:green;
+				text-align: center;
+				line-height: 50px;
+				position: absolute;
+				top: 50%;
+				left: 10px;
+				z-index: 999;
+				text-decoration: none;
+				transform: translateY(-50%);
+			}
+			#right{
+				width: 50px;
+				height: 50px;
+				background:green;
+				text-align: center;
+				line-height: 50px;
+				position: absolute;
+				top: 50%;
+				right: 10px;
+				z-index: 999;
+				text-decoration: none;
+				transform: translateY(-50%);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div>1红</div>
+			<div>2蓝</div>
+			<div>3绿</div>
+			<div>4黄</div>
+			<ol>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			</ol>
+			<a href="#" id="left">&lt;</a>
+			<a href="#" id="right">&gt;</a>
+		</div>
+	</body>
+	<script>
+	   //获取所需要的元素
+		var box=document.getElementsByClassName("box")[0];
+		var divs = box.querySelectorAll("div");
+	    var lis = box.querySelectorAll("li");
+	    var left=document.getElementById("left")
+	    var right=document.getElementById("right")
+//	    //因为定位后divs第4个会显示在最上面 所以先循环一遍divs，把第一个divs给显示出来
+	    for(var i=0;i<divs.length;i++){
+	    	//露出第一个divs是让他结束循环
+           if(i==0) continue;
+          divs[i].style.display="none"
+        }
+	    //设置第一个小元点的初始颜色黑色
+	     lis[0].style.background="black"
+	    //设置一个初始变量=0
+	    var num=0;
+	    
+	    //这个是顺时针转的也就是点击左按钮时让他转
+	    //写一个计时器
+	    var t=setInterval(fun,1000)
+	    //写一个函数来让计时器调用
+	    function fun(){
+	    	//计时器每调用一次就让那个变量加一次
+	    	num++;
+	    	//判断如果num>=divs的长度就让他在变为0，从新开始循环
+	    	if (num >= divs.length) {
+            num = 0;
+            }
+	    	//开始循环divs，
+	    	for(var i=0;i<divs.length;i++){
+	    		//当循环到当前的divs是让他隐藏
+	    		divs[i].style.display = "none"
+	    		//当循环到当前的圆点时让他变为原始颜色
+	    		 lis[i].style.background="paleturquoise"
+	    	}
+	    	//让其他divs显示出来
+	    	 divs[num].style.display = "block"
+             lis[num].style.background = "black"
+	    }
+	    //把上面向左的复制下来改成减减就成了点击右按钮时执行的轮播函数了
+	     function fun1(){
+	    	//计时器每调用一次就让那个变量加一次
+	    	num--;
+	    	//判断如果num>=divs的长度就让他在变为0，从新开始循环
+	    	if (num==-1) {
+	    		//这里他的长度减1是因为他的下标比他的长度小1
+                num =divs.length-1;
+            }
+	    	//开始循环divs，
+	    	for(var i=0;i<divs.length;i++){
+	    		//当循环到当前的divs是让他隐藏
+	    		divs[i].style.display = "none"
+	    		//当循环到当前的圆点时让他变为原始颜色
+	    		 lis[i].style.background="paleturquoise"
+	    	}
+	    	//让其他divs显示出来
+	    	 divs[num].style.display = "block"
+             lis[num].style.background = "black"
+	    }
+	     
+	     
+	     //点击左按钮让他执行fun函数
+	       left.onclick=function(){
+	       	fun()
+	       }
+	      //点击右按钮让他执行fun1函数
+	      right.onclick=function(){
+	      	fun1()
+	      }
+	      //当鼠标以上box时让他清除计数器，停止轮播
+	       box.onmousemove=function () {
+           clearInterval(t)
+          }
+	       //当鼠标移开时在让他在开始执行计数器轮播
+        box.onmouseout=function () {
+        t=setInterval(fun,1000)
+         }
+	      //鼠标移到那个圆点上是显示相应的divs
+	      //循环一遍lis
+//	      for(var i=0;i<lis.length;i++){
+//	      	 //把lis的下标等于他的循环变量
+//	      	 lis[i].index=i;
+//	      	 lis[i].onmousemove=function(){
+//	      	  for(var i=0;i<divs.length;i++){
+//	      	  	//当循环到当前的圆点时让他变为原始颜色
+//              lis[i].style.background="paleturquoise";
+//              //当循环到当前的divs是让他隐藏
+//              divs[i].style.display="none"
+//              }
+//	      	  lis[this.index].style.background="black"
+//	      	  divs[this.index].style.display="block"
+//	      	 }
+//	      }
+	</script>
+</html>

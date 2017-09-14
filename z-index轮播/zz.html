@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/z.css"/>
+	</head>
+	<body>
+		<div id="all">
+			<img src="img/2.jpg" style="z-index: 1;"/>
+			<img src="img/3.jpg"/>
+			<img src="img/4.jpg"/>
+			<img src="img/5.jpg"/>
+			
+			<ol>
+				<li style="background: black;"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+			<a href="#" id="left">&lt;</a>
+			<a href="#" id="right">&gt;</a>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//获取元素
+		var all=document.querySelector("#all")
+		var imgs=document.querySelectorAll("img")
+		var lis=document.querySelectorAll("li")
+		var left=document.querySelector("#left");
+		var right=document.querySelector("#right")
+	
+
+	//设置一个初始值变量
+	var num=0;
+	//写一个计时器,点击做按钮让他轮播
+	var t=setInterval(fun,2000);
+	//封装一个函数调用计时器
+	function fun(){
+		num++;//每调用计时器初始化值加1
+		if(num>=imgs.length){
+			num=0;
+		}
+		
+		//循坏图片
+		for(var i=0;i<imgs.length;i++){
+			imgs[i].style.zIndex=-1;//循坏到z-index=-1时，隐藏
+			lis[i].style.background="blue"
+		}
+		//让其他图片显示出来
+		imgs[num].style.zIndex=1;
+		lis[num].style.background='black'
+	}
+	
+	
+	function fun1(){
+		num--;//当计时器调用时，让他变量减1；
+		if(num==-1){//如果他的长度等于-1，开始新的循坏
+			num=imgs.length-1;
+			
+		}
+		//开始循坏条件
+		for(var i=0;i<imgs.length;i++){
+			imgs[i].style.zIndex=-1;//循坏到z-index=-1时，隐藏
+			lis[i].style.background="blue"
+		}
+		//让其他图片显示出来
+		imgs[num].style.zIndex=1;
+		lis[num].style.background='black'
+	}
+	
+	
+	//点击左按钮
+	left.onclick=function(){
+		fun1();
+	}
+	//点击左按钮
+	right.onclick=function(){
+		fun();
+	}
+	//鼠标按下时清除计时器，停止轮播
+	all.onmousemove=function(){
+		clearInterval(t);
+	}
+	//鼠标移开的时候开始计数轮播
+	all.onmouseout=function(){
+		t=setInterval(fun,2000)
+	}
+	
+	
+	
+	</script>
+</html>

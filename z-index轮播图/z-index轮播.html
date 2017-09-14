@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#all{
+				width: 600px;
+				height: 400px;
+				border: 3px solid darkred;
+				margin: 0 auto;
+				position: relative;
+			}
+			#all img{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			 ol{
+				position: absolute;
+				left: 50%;
+				bottom: 10px;
+				z-index: 999;
+				margin-left: -20px;
+			}
+			#all ol li{
+				width: 20px;
+				height: 20px;
+				background: darkred;
+				border-radius: 50%;
+				float: left;
+				margin-left: 10px;
+				text-align: center;
+				line-height: 20px;
+				color: white;
+			}
+			#left{
+				width: 50px;
+				height: 50px;
+				background: darkred;
+				z-index: 999;
+				font-size: 30px;
+				position: absolute;
+				text-decoration: none;
+				left: 10px;
+				top: 50%;
+				text-align: center;
+				line-height: 50px;
+			}
+			#right{
+				width: 50px;
+				height: 50px;
+				background: darkred;
+				z-index: 999;
+				font-size: 30px;
+				position: absolute;
+				text-decoration: none;
+				right: 10px;
+				top: 50%;
+				text-align: center;
+				line-height: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="all">
+			<img src="img/2.jpg" style="z-index: 1;"/>
+			<img src="img/3.jpg"/>
+			<img src="img/5.jpg"/>
+			<img src="img/4.jpg"/>
+	
+		<!--小圆点-->
+		<ol>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ol>
+		
+		<!--左右按钮-->
+		<a href="#" id="left">&lt;</a>
+		<a href="#" id="right">&gt;</a>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//获取元素
+		var all=document.querySelector("#all");
+		var imgs=document.querySelectorAll("img");
+		var lis=document.querySelectorAll("li");
+		var left=document.querySelector("#left");
+		var right=document.querySelector("#right");
+		
+		//设置初始值
+		num=0;
+		
+		//计时器
+		var t=setInterval(fun,2000);
+		
+		//封装函数
+		function fun(){
+			num++;
+			if(num>=imgs.length){
+				num=0;
+			}
+			
+			//图片
+			for(var i=0;i<imgs.length;i++){
+				imgs[i].style.zIndex=-1;//隐藏
+				lis[i].style.background='blue'
+			}
+			imgs[num].style.zIndex=1;//显示
+			lis[num].style.background='black'
+		}
+		
+		function fun1(){
+			num--;
+			if(num==-1){
+				num=imgs.length-1;
+			}
+			
+			//图片
+			for(var i=0;i<imgs.length;i++){
+				imgs[i].style.zIndex=-1;//隐藏
+				lis[i].style.background='blue'
+			}
+			imgs[num].style.zIndex=1;//显示
+			lis[num].style.background='black'
+		}
+		
+		//点击做按钮
+		left.onclick=function(){
+			fun1();
+		}
+		//点击右按钮
+		right.onclick=function(){
+			fun();
+		}
+		
+		//点击按钮移入时停止轮播
+		all.onmouseover=function(){
+			clearInterval(t);
+		}
+		//移出时轮播
+		all.onmouseout=function(){
+			t=setInterval(fun,2000)
+		}
+	</script>
+</html>
+			
+			
+			
+			

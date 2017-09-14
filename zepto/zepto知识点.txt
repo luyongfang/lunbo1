@@ -1,0 +1,75 @@
+一. 什么是zepto ?
+ 
+        zepto 就是一个针对于移动端的轻量级js框架，它提供了一些移动端基本的触摸事件来做触摸屏交互，
+	 zepto是不支持IE浏览器的。相比 jQuery  它更轻量级，加载速度更快  对移动端的支持更有针对性。
+	 
+	 
+ 二. zepto 的触摸事件有哪些？
+     
+	  a.触摸事件：
+		  
+       你可以绑定以下四种Touch事件来了解基本的touch事件:
+
+               touchstart:手指触摸屏幕上的时候触发 
+
+               touchmove:手指在屏幕上移动的时候触发 
+
+               touchend:手指从屏幕上拿起的时候触发 
+
+               touchcancel:系统取消touch事件的时候触发
+
+	  
+	  
+      b.滑动事件：
+	      swipe       -- 只要滑动就触发
+		  swipeLeft   -- 左滑动事件
+		  swipeRight  -- 右滑动事件
+		  swipeUp     -- 向上滑动事件
+		  swipeDown   -- 向下滑动事件
+		  
+	  c.点击事件
+	      Tap        -- 点击事件
+		  singleTap  -- 单击事件
+		  doubleTap  -- 双击事件
+		  longTap    -- 长按事件
+		  
+		  
+		  
+  三. zepto 与  jQuery 的异同？
+     a. 相同点：
+			     Zepto最初是为移动端开发的库，是jQuery的轻量级替代品，因为它的API和jQuery相似，
+			 而文件更小。Zepto最大的优势是它的文件大小，只有8k多，是目前功能完备的库中最小
+			 的一个，尽管不大，Zepto所提供的工具足以满足开发程序的需要。大多数在jQuery中
+			 常用的API和方法Zepto都有，Zepto中还有一些jQuery中没有的。另外，因为Zepto的API
+			 大部分都能和jQuery兼容，所以用起来极其容易，如果熟悉jQuery，就能很容易掌握Zepto。
+			 你可用同样的方式重用jQuery中的很多方法，也可以方面地把方法串在一起得到更简洁的代码，
+			 甚至不用看它的文档。
+  
+      
+  
+     b. 不同点： 
+	   1. Zepto 对象 不能自定义事件
+	   
+	   2. Zepto 的选择器表达式: [name=value]  中value 必须用 双引号 "  or 单引号 ' 括起来。
+	        例如执行：$('[data-userid=123123123]')
+            结果：Error: SyntaxError: DOM Exception 12
+            解决办法： $('[data-userid="123123123]"') or $("[data-userid='123123123']")
+			
+	   3. Zepto 是根据标准浏览器写的，所以对于节点尺寸的方法只提供 width() 和 height()，
+	      省去了 innerWidth(), innerHeight(),outerWidth(),outerHeight()
+		  
+	   4.Zepto 的each 方法只能遍历 数组，不能遍历JSON对象
+	   
+	   5.Zepto 的animate动画 用法与jQuery不同
+	   
+	   6.DOM 操作有区别
+	     (function($) {  
+            $(function() {  
+				var $list = $('<ul><li>jQuery 插入</li></ul>', {  
+				  id: 'insert-by-jquery'  
+				});  
+				$list.appendTo($('body'));  
+			  });  
+          })(window.jQuery);  
+		  
+		  jQuery 操作 ul 上的 id 不会被添加。

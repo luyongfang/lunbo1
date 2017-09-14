@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 720px;
+            height:480px;
+            border: solid 2px red;
+            margin: 40px auto;
+            position: relative;
+        }
+        img{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        ul{
+            /*background: red;*/
+            position: absolute;
+            list-style: none;
+            top: 400px;
+            left: 200px;
+        }
+        li{
+            width: 30px;
+            height:30px;
+            border-radius: 50%;
+            background: yellowgreen;
+            margin-left: 20px;
+            float: left;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        a{
+            text-decoration: none;
+            background-color:yellowgreen;
+            width: 50px;
+            height:80px;
+            position: absolute;
+            top: 50%;
+            margin-top: -40px;
+            font-size: 60px;
+            text-align: center;
+            line-height: 80px;
+            color: red;
+        }
+        .zuo{
+          left: 0;
+        }
+        .you{
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    <img src="1.jpg">
+    <img src="2.jpg">
+    <img src="3.jpg">
+    <img src="4.jpg">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <a href="#" class="zuo"><</a>
+    <a href="#" class="you">></a>
+</div>
+<script>
+    var div=document.getElementById("div1")
+    var img=document.getElementsByTagName("img")
+    var li=document.getElementsByTagName("li");
+    var a=document.getElementsByTagName("a")[0];
+    var zuo=document.getElementsByClassName("zuo")[0];
+    var you=document.getElementsByClassName("you")[0];
+    you.onclick=function () {
+        fun()
+    }
+    zuo.onclick=function () {
+        fun1()
+    }
+    for(var i=0;i<img.length;i++){
+        if(i==0){
+            continue;
+        }
+        img[i].style.display="none"
+    }
+    li[0].style.background="red";
+    var t=setInterval(fun,1000)
+    var num=0;
+    function fun() {
+        num++
+        if (num >= img.length) {
+            num = 0
+        }
+        for (var i = 0; i < img.length; i++) {
+            img[i].style.display = "none"
+            li[i].style.backgroundColor="yellowgreen"
+        }
+        img[num].style.display = "block"
+        li[num].style.backgroundColor="red"
+    }
+    function fun1() {
+        num--
+        if (num==-1) {
+            num = img.length-1
+        }
+        for (var i = 0; i < img.length; i++) {
+            img[i].style.display = "none"
+            li[i].style.backgroundColor="yellowgreen"
+        }
+        img[num].style.display = "block"
+        li[num].style.backgroundColor="red"
+    }
+    div.onmousemove=function () {
+        clearInterval(t)
+    }
+    div.onmouseout=function () {
+      t=setInterval(fun,1000)
+    }
+    for(var i=0;i<li.length;i++){
+        li[i].index=i;
+        li[i].onmousemove=function () {
+            for(var i=0;i<img.length;i++){
+                li[i].style.background="yellowgreen";
+                img[i].style.display="none"
+            }
+            li[this.index].style.background="red";
+            img[this.index].style.display="block";
+            num=this.index-1
+        }
+    }
+</script>
+</body>
+</html>

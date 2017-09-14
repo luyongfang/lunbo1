@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#box{
+				width: 600px;
+				height: 300px;
+				border: 1px solid black;
+				position: relative;
+				
+			}
+			#box>div{
+				width: 100%;
+				height: 100%;
+				background: yellow;
+				position: absolute;
+			}
+			ol{
+				position: absolute;
+				bottom: 10px;
+				left: 50%;
+				transform: translate(-50%);
+				z-index: 999;
+			}
+			ol li{
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: darkgray;
+				float: left;
+				margin-left: 15px;
+			}
+			#left{
+				width: 50px;
+				height: 50px;
+				background:green;
+				text-align: center;
+				line-height: 50px;
+				position: absolute;
+				top: 50%;
+				left: 10px;
+				z-index: 999;
+				text-decoration: none;
+				transform: translateY(-50%);
+			}
+			#right{
+				width: 50px;
+				height: 50px;
+				background:green;
+				text-align: center;
+				line-height: 50px;
+				position: absolute;
+				top: 50%;
+				right: 10px;
+				z-index: 999;
+				text-decoration: none;
+				transform: translateY(-50%);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div style="z-index: 1;">slide1</div>
+			<div>slide2</div>
+			<div>slide3</div>
+			<div>slide4</div>
+			<ol>
+				<li style="background: red;"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+			<a href="#" id="left">&lt;</a>
+			<a href="#" id="right">&gt;</a>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//下面是获取元素
+		var box = document.querySelector("#box");
+		var divs = box.querySelectorAll("div");
+		var lis = document.querySelectorAll("li");
+		
+		var index =0;//设置初始化变量		
+		var timer = null;//计时器
+		//封装一个函数
+		function lun(){		    
+			index++;//下标++			
+			for(var i=0; i<divs.length; i++){//fou循环要轮播的div			  
+				divs[i].style.zIndex = -1;  //
+				lis[i].style.background = "darkgray";//	设置背景颜色
+			}
+			divs[index].style.zIndex = 1;//在外面设置他的下标大于当前循环的下标
+			lis[index].style.background="red"//设置背景颜色
+		}		
+			
+			
+			
+			for(var i=0; i<lis.length; i++){//循环小圆点
+			lis[i].index = i;// 把i保存一下到lis[i].index里
+			
+			lis[i].onclick=function(){//给小圆点点击事件			    
+				clearInterval(timer)//清除定时器
+				var n = this.index;//把当前下标保存一下，
+				for(var j=0; j<lis.length; j++){//循环li				   
+					divs[j].style.zIndex = -1; //循环到的话 要动的div层级-1
+					
+					lis[j].style.background = "darkgray";//更改背景颜色
+				} 
+				divs[n].style.zIndex = 1;//n是当前下标层级   变为1 显示出来                
+				lis[n].style.background = "red";//更改背景颜色
+				if(n==3){//判断当前li下标到最后了  就改为-1
+					index = -1;
+				}else{
+					index=n//否则让n给index赋值 var n = this.index;
+				}
+                //			调用lun  运行计时器
+                timer = setInterval(lun,1500)
+			}
+		}
+		
+		//left
+		var left = document.querySelector("#left");
+		left.onclick=function(){ //坐按钮点击事件	  
+			clearInterval(timer);//事先清楚定时器	 
+//			循环要运动的div
+			for(var i=0; i<divs.length; i++){
+			    //让当前页面减一
+				divs[i].style.zIndex = -1;
+//				改背景颜色
+				lis[i].style.background = "darkgray";
+			}
+//			当前下表层级比当前循环的高
+			divs[index].style.zIndex= 1;
+			//略
+			lis[index].style.background="red";
+//			判断   如果下表没了就让他等于四
+			if(index==0){
+				index=4;
+			}
+//			下表减一
+			index--;
+//			调用lun  计时器
+			timer= setInterval(lun,1500)
+		}
+		//right
+//        right和上面差不多  悟吧
+		var right = document.querySelector("#right");
+		right.onclick=function(){
+			clearInterval(timer);
+			for(var i=0; i<divs.length; i++){
+				divs[i].style.zIndex = -1;
+				lis[i].style.background = "darkgray";
+			}
+			divs[index].style.zIndex= 1;
+			lis[index].style.background="red";
+			if(index==3){
+				index=-1;
+			}
+			index++;
+			timer= setInterval(lun,1500)
+		}
+		//最后每隔1.5秒 lun 调用这个函数
+		timer = setInterval(lun,1500)
+	</script>
+</html>

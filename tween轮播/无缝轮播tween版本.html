@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        img{
+            width: 800px;
+            height: 400px;
+        }
+        li{
+            width: 800px;
+            height: 400px;
+            float: left;
+        }
+        ul{
+            list-style: none;
+            width: 3200px;
+            height: 400px;
+            position: absolute;
+        }
+        #box{
+            width: 800px;
+            height: 400px;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div id="box">
+    <ul id="wrap">
+        <li><img src="img/2.jpg" alt=""></li>
+        <li><img src="img/3.jpg" alt=""></li>
+        <li><img src="img/4.jpg" alt=""></li>
+        <li><img src="img/5.jpg" alt=""></li>
+    </ul>
+</div>
+
+<script src="tween.js"></script>
+<script>
+
+    var oUl = document.getElementById('wrap');
+
+    setInterval(arr,2000);
+
+    var timer;
+    var t = 0;
+    var b = 0;
+    var c = -800;
+    var d = 100;
+    //函数实现图片的切换
+    function arr() {
+        clearInterval(timer);
+        timer = setInterval(function () {
+            t++;
+            if(t == d){
+                clearInterval(timer);
+                t = 0;
+                b += c;
+                if(b == -2400){
+                    oUl.style.left = '0px';
+                    b = 0;
+                }
+            }
+            oUl.style.left = Tween.Linear(t,b,c,d) + 'px';
+        },30);
+    }
+
+</script>
+
+</body>
+</html>

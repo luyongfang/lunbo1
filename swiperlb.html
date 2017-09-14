@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="swiper/dist/css/swiper.css"/>
+		<script src="swiper/dist/js/swiper.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.swiper-container{
+			width: 100%;
+			height: 300px;
+		}
+		.swiper-slide{
+			width: 100%;
+			height: 100%;
+			background: yellow;
+			text-align: center;
+			line-height: 300px;
+		}
+	</style>
+	</head>
+	<body>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					slide1
+				</div>
+				<div class="swiper-slide">
+					slide2
+				</div>
+				<div class="swiper-slide">
+					slide3
+				</div>
+				<div class="swiper-slide">
+					slide4
+				</div>
+				<div class="swiper-slide">
+					slide5
+				</div>
+				<div class="swiper-slide">
+					slide6
+				</div>
+			</div>
+			<!--小圆点-->
+			<div class="swiper-pagination"></div>
+			<!--左右按钮-->
+			<div class="swiper-button-prev swiper-button-white"></div>
+			<div class="swiper-button-next swiper-button-white"></div>
+			
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var myswiper=new Swiper(".swiper-container",{
+		loop:true,
+		autoplay:1000,
+		pagination:".swiper-pagination",
+		autoplayDisableOnInteraction:false,
+//		direction:"vertical",//上下轮播
+		deriction:"horizontal",//左右轮播
+		//slidesPerView:4,//一个页面同时现实的slide
+		//spaceBetween:20,//左右间隔20
+		prevButton:".swiper-button-prev",//点击左右按钮
+		nextButton:".swiper-button-next"
+	})
+</script>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!--优先使用IE最新版本和Chrome-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chome=1" />
+    <!--禁止浏览器自动的识别-电话号码-email--->
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <!--是否启用Web全屏-->
+    <meta name="apple-mobile-web-app-capable" content='yes' />
+    <!--设置苹果工具栏颜色-->
+    <meta name="apple-mobile-web-app-status-bar-style" content='black' />
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/index.css"/>
+    <script src="js/zepto.min.js"></script>
+</head>
+<body>
+<div class="content">
+    <ul>
+        <li><img src="img/1.jpg"></li>
+        <li><img src="img/2.jpg"></li>
+        <li><img src="img/3.jpg"></li>
+    </ul>
+
+    <!-- -->
+    <ol>
+        <li style="background-color: #fd453b"></li>
+        <li></li>
+        <li></li>
+    </ol>
+</div>
+
+
+<script>
+    // 阻止默认事件
+    document.addEventListener('touchmove', function(ev){
+        ev.preventDefault();
+    }, {passive:false});
+    autoPlay();
+    // 开始手动滑动禁止计时器
+    document.addEventListener('touchstart', function(){
+        clearInterval(timer);
+    })
+    // 滑动完成开启计时器
+    document.addEventListener('touchend', function(){
+        autoPlay();
+    })
+
+    // 实现左右滑动
+    // 定义变量记录当前图片下标
+    var index = 0;
+    // 获取屏幕宽度
+    var sw = screen.width;
+    var length = $('img').length;
+
+    $('.content ul').swipeLeft(function(){
+        index++;
+        // 判断如果滑动到最后一张，从第一张开始
+        if(index >= length){
+            index = length -1; // 滑动到最后一张停止
+//					index = 0; // 滑动到最后一张，从第一张开始
+        }
+        go(index);
+    })
+
+    $('.content ul').swipeRight(function(){
+        index--;
+        if(index <= -1){
+            index = 0; // 向右滑动到第一张停止
+//					index = length -1; //向右滑动到第一张从最后一张开始
+        }
+        go(index);
+    })
+    // 设置样式
+    function go(index){
+        $('.content ul').css('transform', 'translateX(-'+index*sw+'px)');
+        // 设置小圆点
+        $('ol li').css('background', 'lightgray');
+        $('ol li').eq(index).css('background', 'orangered');
+    }
+
+    // 自动滚动
+    function autoPlay(){
+        // 添加自动滚动
+        timer = setInterval(function(){
+            index++;
+            if(index >= length){
+                index = 0;
+            }
+            go(index);
+        }, 3000);
+    }
+</script>
+</body>
+</html>
